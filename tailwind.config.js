@@ -12,6 +12,9 @@ module.exports = {
         192: "48rem",
         256: "64rem",
       },
+      fontSize: {
+        xss: "0.65rem",
+      },
     },
   },
 };

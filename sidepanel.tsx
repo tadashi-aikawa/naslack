@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
 import { groupBy, sorter } from "~collections";
-import { SlackClient, type SlackResponse } from "~slack";
+import { SlackClient, toDisplayDateTime, type SlackResponse } from "~slack";
 import "./style.css";
 
 function IndexSidePanel() {
@@ -28,16 +28,19 @@ function IndexSidePanel() {
     .map(([channelName, messages]) => {
       const lists = messages.map((m) => (
         <div className="relative flex flex-col rounded-lg p-4 whitespace-break-spaces bg-gray-100">
-          <span className="text-gray-500">{m.text}</span>
-          <span className="text-gray-800 text-center mt-4">
+          <a
+            href={m.permalink}
+            className="text-xss text-gray-500 text-right ml-2"
+          >
+            <span className="text-right text-gray-500">
+              ⌚ {toDisplayDateTime(m.ts)}
+            </span>
+          </a>
+          <hr className="my-2" />
+          <span className="text-gray-500 my-2">{m.text}</span>
+          <span className="text-gray-800 text-center mt-2">
             <span>👤</span>
             <span className="italic">{m.username}</span>
-            <a
-              href={m.permalink}
-              className="text-xs text-gray-500 text-right ml-2"
-            >
-              🔗
-            </a>
           </span>
         </div>
       ));

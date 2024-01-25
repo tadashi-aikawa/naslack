@@ -1,3 +1,5 @@
+import { DateTime } from "owlelia";
+
 const BASE_URL = "https://slack.com/api";
 
 type UserId = string;
@@ -39,6 +41,10 @@ interface MatchedResult {
   // blocks: リッチな表現したければいつか
   text: string;
   permalink: string;
+}
+
+export function toDisplayDateTime(ts: TimeStamp): string {
+  return DateTime.of(Number(ts)).displayDateTime;
 }
 
 /**
