@@ -8,11 +8,14 @@ import "./style.css"
 function IndexSidePanel() {
   const [token, setToken] = useState<string>("")
   const [query, setQuery] = useState<string>("")
+  const [searching, setSearching] = useState<boolean>(false)
 
   const [res, setRes] = useState<SlackResponse | undefined>()
 
   const search = async (query: string) => {
+    setSearching(true)
     setRes(await new SlackClient(token).search(query))
+    setSearching(false)
   }
 
   const messagesByChannelName = useMemo(() => {
@@ -71,11 +74,13 @@ function IndexSidePanel() {
         <button
           onClick={() => search(query)}
           type="button"
+          disabled={searching}
           className="inline-flex items-center px-3 py-1.5 ml-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           検索
         </button>
       </div>
 
+      {searching && <div>🌀検索中...</div>}
       <div className="p-5">{channelElms}</div>
     </div>
   )
