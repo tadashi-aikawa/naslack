@@ -80,8 +80,43 @@ function IndexSidePanel() {
         </button>
       </div>
 
-      {searching && <div>🌀検索中...</div>}
-      <div className="p-5">{channelElms}</div>
+      <details>
+        <summary>クエリのカンペ</summary>
+        <ul>
+          <li>
+            <code>before:2024-02-10</code>
+            <span className="ml-3 text-gray-500">
+              2024/02/10より前(02/10は入らない)
+            </span>
+          </li>
+          <li>
+            <code>after:2024-02-10</code>
+            <span className="ml-3 text-gray-500">
+              2024/02/10より後(02/10は入らない)
+            </span>
+          </li>
+          <li>
+            <code>on:2024-02-10</code>
+            <span className="ml-3 text-gray-500">2024/02/10</span>
+          </li>
+          <li>
+            <code>is:thread with:tadashi-aikawa</code>
+            <span className="ml-3 text-gray-500">
+              tadashi-aikawaとやりとりしたスレッド
+            </span>
+          </li>
+          <li>
+            <code>-from:me</code>
+            <span className="ml-3 text-gray-500">自分の投稿を除外</span>
+          </li>
+        </ul>
+      </details>
+
+      {searching ? (
+        <div>🌀検索中...</div>
+      ) : (
+        <div className="p-5">{channelElms}</div>
+      )}
     </div>
   )
 }
