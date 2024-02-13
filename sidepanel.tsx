@@ -43,10 +43,31 @@ function IndexSidePanel() {
           <span className="text-gray-500 my-2">{m.text}</span>
         </div>
       ))
+
+      const latestUpdated = toDisplayDateTime(
+        messages
+          .map((x) => x.ts)
+          .sort()
+          .at(-1)
+      )
       return (
         <details>
           <summary className="text-lg font-bold">
-            {channelName}: {messages.length}件
+            <span className="inline-flex items-center justify-center w-5 h-5 mr-2 text-sm font-semibold text-gray bg-green-200 rounded-full">
+              {messages.length}
+            </span>
+            <span>{channelName}</span>
+            <span className="bg-gray-100 text-gray-800 text-xss font-medium h-5 inline-flex items-center px-1 mx-2 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-200 ">
+              <svg
+                className="w-2.5 h-2.5 me-1.5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 20 20">
+                <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+              </svg>
+              {latestUpdated}
+            </span>
           </summary>
           <div className="flex flex-col gap-4 p-6">{lists}</div>
         </details>
