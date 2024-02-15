@@ -10,7 +10,9 @@ import {
 
 import "./style.css"
 
+import { Badge, Button, Spinner, TextInput } from "flowbite-react"
 import { DateTime } from "owlelia"
+import { HiClock } from "react-icons/hi"
 
 function IndexSidePanel() {
   const [token, setToken] = useState<string>("")
@@ -61,21 +63,19 @@ function IndexSidePanel() {
       return (
         <details>
           <summary className="text-lg font-bold">
-            <span className="inline-flex items-center justify-center w-5 h-5 mr-2 text-sm font-semibold text-gray bg-green-200 rounded-full">
-              {messages.length}
-            </span>
-            <span>{channelName}</span>
-            <span className="bg-gray-100 text-gray-800 text-xss font-medium h-5 inline-flex items-center px-1 mx-2 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-200 ">
-              <svg
-                className="w-2.5 h-2.5 me-1.5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 20 20">
-                <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
-              </svg>
-              {latestRelativeUpdated}
-            </span>
+            <div className="inline-flex items-center">
+              <Badge size="xs" color="success" className="mr-2 rounded-full">
+                {messages.length}
+              </Badge>
+              <span>{channelName}</span>
+              <Badge
+                size="xs"
+                color="gray"
+                icon={HiClock}
+                className="rounded-sm ml-2 h-5 text-gray-500">
+                {latestRelativeUpdated}
+              </Badge>
+            </div>
           </summary>
           <div className="flex flex-col gap-4 p-6">{lists}</div>
         </details>
@@ -85,28 +85,24 @@ function IndexSidePanel() {
   return (
     <div className="w-192 p-3 flex flex-col gap-4">
       <div>
-        <input
+        <TextInput
           placeholder="tokenを入力"
-          className="rounded-lg border p-2 w-64"
           type="password"
           value={token}
-          onChange={(e) => setToken(e.target.value)}></input>
+          className="w-96"
+          onChange={(e) => setToken(e.target.value)}></TextInput>
       </div>
 
-      <div>
-        <input
+      <div className="flex gap-3">
+        <TextInput
           placeholder="クエリを入力"
-          className="rounded-lg border p-2 w-96"
           type="text"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}></input>
-        <button
-          onClick={() => search(query)}
-          type="button"
-          disabled={searching}
-          className="inline-flex items-center px-3 py-1.5 ml-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          className="w-96"
+          onChange={(e) => setQuery(e.target.value)}></TextInput>
+        <Button onClick={() => search(query)} disabled={searching}>
           検索
-        </button>
+        </Button>
       </div>
 
       <details>
@@ -142,7 +138,10 @@ function IndexSidePanel() {
       </details>
 
       {searching ? (
-        <div>🌀検索中...</div>
+        <div className="flex items-center">
+          <Spinner size="xl" />
+          <span className="text-xl text-gray-500 pl-3">検索中です...</span>
+        </div>
       ) : (
         <div className="p-5">{channelElms}</div>
       )}
