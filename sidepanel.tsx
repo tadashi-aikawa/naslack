@@ -46,7 +46,6 @@ function IndexSidePanel() {
             <b>{m.username}</b>
             <span className="text-xss text-gray-500 ml-2">
               {toDisplayDateTime(m.ts)}
-              {DateTime.of(Number(m.ts)).rfc3339}
             </span>
           </a>
           <hr className="my-2" />
